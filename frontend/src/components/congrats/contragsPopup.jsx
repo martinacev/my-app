@@ -1,5 +1,5 @@
 import classes from "./CongratsPopup.module.css";
-
+import Button from "../Button/Button";
 const CongratsPopup = ({ onClose }) => {
   return (
     <div className={classes.overlay} onClick={onClose}>
@@ -15,9 +15,9 @@ const CongratsPopup = ({ onClose }) => {
 
         <p>Check your email.</p>
 
-        <button onClick={onClose}>
+        <Button onClick={onClose}>
           OK
-        </button>
+        </Button>
       </div>
     </div>
   );

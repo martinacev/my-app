@@ -65,8 +65,6 @@ def send_confirmation_email(to_email: str, name: str, token: str):
 
                     <p style="margin: 0; font-size: 13px; color: #9ca3af; text-align: center; line-height: 1.6;">
                       YOU MUST COME!!! 🥳<br/>
-                      If the button doesn't work, paste this link into your browser:<br/>
-                      <a href="{confirm_link}" style="color: #4f46e5; word-break: break-all;">{confirm_link}</a>
                     </p>
                   </td>
                 </tr>

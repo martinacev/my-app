@@ -1,4 +1,5 @@
 import classes from "./useForm.module.css";
+import Button from "../Button/Button";
 
 const UserForm = ({
   name,
@@ -28,12 +29,9 @@ const UserForm = ({
         <p className={classes.error}>{error}</p>
       )}
 
-      <button
-        onClick={onSubmit}
-        className={classes.button}
-      >
+      <Button onClick={onSubmit}>
         Confirm your presence
-      </button>
+      </Button>
     </div>
   );
 };

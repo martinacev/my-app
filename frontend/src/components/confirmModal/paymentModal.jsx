@@ -1,4 +1,4 @@
-
+import Button from "../Button/Button";
 export default function PaymentModal({
   onClose,
   onConfirm,
@@ -26,7 +26,7 @@ export default function PaymentModal({
           Pay via Revolut, PayPal, or cash on arrival.
         </p>
 
-        <button
+        <Button
           style={{
             ...styles.btnPrimary,
             width: "100%",
@@ -35,14 +35,13 @@ export default function PaymentModal({
           onClick={onConfirm}
         >
           I'll pay — confirm my spot
-        </button>
+        </Button>
 
-        <button
-          style={styles.btnSecondary}
+        <Button
           onClick={onClose}
         >
           Maybe later
-        </button>
+        </Button>
       </div>
     </div>
   );

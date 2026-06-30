@@ -1,4 +1,4 @@
-
+import Button from "../Button/Button";
 export default function PaymentCard({ name, onConfirm }) {
   return (
     <div style={styles.page}>
@@ -11,12 +11,12 @@ export default function PaymentCard({ name, onConfirm }) {
           You're confirmed! Now click below to finalize your spot.
         </p>
 
-        <button
-          style={styles.btnPrimary}
+        <Button
           onClick={onConfirm}
+          variant="primary" 
         >
           Confirm my presence
-        </button>
+        </Button>
       </div>
     </div>
   );

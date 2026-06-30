@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 const SuccessMessage = ({ onReset }) => {
   return (
     <div className={classes.container}>
@@ -9,9 +10,9 @@ const SuccessMessage = ({ onReset }) => {
         We sent a confirmation link to your inbox.
       </p>
 
-      <button onClick={onReset}>
+      <Button onClick={onReset}>
         Register another
-      </button>
+      </Button>
     </div>
   );
 };
