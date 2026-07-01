@@ -1,13 +1,12 @@
-import classes from "./CongratsPopup.module.css";
+
 import Button from "../Button/Button";
 const CongratsPopup = ({ onClose }) => {
   return (
-    <div className={classes.overlay} onClick={onClose}>
+    <div onClick={onClose}>
       <div
-        className={classes.modal}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={classes.icon}>🎉</div>
+        <div>🎉</div>
 
         <h2>Congratulations!</h2>
 
