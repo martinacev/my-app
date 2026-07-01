@@ -4,8 +4,10 @@ import ConfirmLoading from "./ConfirmLoading";
 import ConfirmError from "./ConfirmError";
 import ConfirmAlready from "./ConfirmAlready";
 import ConfirmSuccess from "./ConfirmSuccess";
-import PaymentCard from "./PaymentCard";
-import PaymentModal from "./PaymentModal";
+import PaymentCard from "../confirmModal/paymentCard";
+import PaymentModal from "../confirmModal/paymentModal";
+
+import classes from "./ConfirmPage.module.css";
 
 const ConfirmPage = () => {
   const {
@@ -19,23 +21,39 @@ const ConfirmPage = () => {
   } = useConfirmPage();
 
   if (status === "loading") {
-    return <ConfirmLoading />;
+    return (
+      <div className={classes.container}>
+        <ConfirmLoading />
+      </div>
+    );
   }
 
   if (status === "error") {
-    return <ConfirmError />;
+    return (
+      <div className={classes.container}>
+        <ConfirmError />
+      </div>
+    );
   }
 
   if (status === "already") {
-    return <ConfirmAlready name={name} />;
+    return (
+      <div className={classes.container}>
+        <ConfirmAlready name={name} />
+      </div>
+    );
   }
 
   if (paid) {
-    return <ConfirmSuccess name={name} />;
+    return (
+      <div className={classes.container}>
+        <ConfirmSuccess name={name} />
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className={classes.container}>
       <PaymentCard
         name={name}
         onConfirm={openModal}
@@ -47,7 +65,7 @@ const ConfirmPage = () => {
           onConfirm={confirmPayment}
         />
       )}
-    </>
+    </div>
   );
 };
 
