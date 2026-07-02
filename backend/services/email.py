@@ -1,18 +1,30 @@
 import smtplib
-import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def send_confirmation_email(to_email: str, name: str, token: str):
-    frontend_url = os.getenv("FRONTEND_URL")
-    confirm_link = f"{frontend_url}/confirm?token={token}"
 
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = "Confirm your presence"
-    msg["From"] = f"PARTY🎉 <{os.getenv('GMAIL_USER')}>"
-    msg["To"] = to_email
+class EmailService:
+    """
+    Handles all outbound email sending.
 
-    html = f"""
+    Config is injected at construction so the service is fully testable
+    without touching os.getenv() inside methods.
+    """
+
+    def __init__(self, gmail_user: str, gmail_password: str, frontend_url: str):
+        self._gmail_user = gmail_user
+        self._gmail_password = gmail_password
+        self._frontend_url = frontend_url
+
+    def send_confirmation_email(self, to_email: str, name: str, token: str) -> None:
+        confirm_link = f"{self._frontend_url}/confirm?token={token}"
+
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = "Confirm your presence"
+        msg["From"] = f"PARTY🎉 <{self._gmail_user}>"
+        msg["To"] = to_email
+
+        html = f"""
     <html>
       <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: sans-serif;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f5; padding: 40px 20px;">
@@ -85,8 +97,8 @@ def send_confirmation_email(to_email: str, name: str, token: str):
       </body>
     </html>
     """
-    msg.attach(MIMEText(html, "html"))
+        msg.attach(MIMEText(html, "html"))
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(os.getenv("GMAIL_USER"), os.getenv("GMAIL_PASSWORD"))
-        server.sendmail(os.getenv("GMAIL_USER"), to_email, msg.as_string())
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(self._gmail_user, self._gmail_password)
+            server.sendmail(self._gmail_user, to_email, msg.as_string())
