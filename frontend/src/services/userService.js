@@ -1,4 +1,4 @@
-const API = "http://localhost:8000";
+const API = "";
 
 export async function getUsers() {
   const res = await fetch(`${API}/users`);
@@ -25,5 +25,12 @@ export async function createUser(user) {
 
 export async function confirmUser(token) {
   const res = await fetch(`${API}/confirm?token=${token}`);
+  return res.json();
+}
+
+export async function submitConfirmation(token) {
+  const res = await fetch(`${API}/confirm?token=${token}`, {
+    method: "POST",
+  });
   return res.json();
 }

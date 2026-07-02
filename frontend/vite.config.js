@@ -14,5 +14,17 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      '/users': {
+        target: 'http://localhost:8000',
+        headers: { 'ngrok-skip-browser-warning': '1' },
+      },
+      '/confirm': {
+        target: 'http://localhost:8000',
+        headers: { 'ngrok-skip-browser-warning': '1' },
+      },
+    },
+  },
 })
 
