@@ -1,22 +1,26 @@
-
 import Button from "../Button/Button";
+import classes from "./CongratsPopup.module.css";
+
 const CongratsPopup = ({ onClose }) => {
   return (
-    <div onClick={onClose}>
+    <div className={classes.overlay} onClick={onClose}>
       <div
+        className={classes.card}
         onClick={(e) => e.stopPropagation()}
       >
-        <div>🎉</div>
+        <div className={classes.icon}>🎉</div>
 
-        <h2>Congratulations!</h2>
+        <h2 className={classes.title}>Congratulations!</h2>
 
-        <p>Registration successful.</p>
+        <p className={classes.text}>
+          Your registration was successful.
+        </p>
 
-        <p>Check your email.</p>
+        <p className={classes.subtext}>
+          Please check your email to confirm your account.
+        </p>
 
-        <Button onClick={onClose}>
-          OK
-        </Button>
+        <Button onClick={onClose}>OK</Button>
       </div>
     </div>
   );
