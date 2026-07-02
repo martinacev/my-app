@@ -1,13 +1,27 @@
-from fastapi import APIRouter, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from database import get_db
+from models import UserModel
 
 router = APIRouter()
 
-valid_tokens = set() 
+@router.get("/confirm")
+def get_confirmation_status(token: str, db: Session = Depends(get_db)):
+    user = db.query(UserModel).filter(UserModel.token == token).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid token")
+    
+    if user.confirmed:
+        return {"name": user.name, "message": "Already confirmed"}
+    else:
+        return {"name": user.name, "message": "Confirmed!"}
 
-@router.post("/api/confirm")
-async def confirm_presence(token: str):
-    if token not in valid_tokens:
-        raise HTTPException(status_code=400, detail="Invalid or expired token.")
-    valid_tokens.discard(token)  # mark as used
-    return {"message": "Confirmed"}
+@router.post("/confirm")
+def confirm_user_presence(token: str, db: Session = Depends(get_db)):
+    user = db.query(UserModel).filter(UserModel.token == token).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid token")
+    
+    user.confirmed = True
+    db.commit()
+    return {"name": user.name, "message": "Confirmed successfully"}
